@@ -43,7 +43,7 @@
  <style>
     .page-container-bg-solid .page-bar, .page-content-white .page-bar {
    
-    margin: 50px -20px 0px !important;
+    margin: 15px -20px 0px !important;
 }
  </style>
 </head>
@@ -61,7 +61,7 @@
             <!-- end sidebar menu -->
             <!-- start page content -->
             <div class="page-content-wrapper mt-10">
-                <div class="page-content mt-10">
+                <div class="page-content">
                         <div class="page-bar">
                         <div class="page-title-breadcrumb">
                             <div class=" pull-left">
@@ -76,7 +76,7 @@
                         </div>
                     </div>
                        
-                    <div class="row  mt-10">
+                    <div class="row ">
                         <div class="col-md-12 col-sm-12">
                             <div class="card card-box  ">
                                 <div class="card-head center">

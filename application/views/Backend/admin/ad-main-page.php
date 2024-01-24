@@ -39,6 +39,13 @@
    <link href="<?php echo base_url(); ?>assets/wnoty/jquery-confirm.min.css" rel="stylesheet" type="text/css" />  
    <!-- New -->
  <link href="<?php echo base_url(); ?>assets/calendar/dist/fullcalendar.css" rel="stylesheet" type="text/css" /> 
+
+ <style>
+    .page-container-bg-solid .page-bar, .page-content-white .page-bar {
+   
+    margin: 50px -20px 0px !important;
+}
+ </style>
 </head>
 <!-- END HEAD -->
 
@@ -68,28 +75,10 @@
                             </ol> -->
                         </div>
                     </div>
-                        <div class="state-overview">
-                        <div class="row">
-                              <!-- <div class="col-xl-3 col-md-6 col-12">
-                                <div class="info-box bg-orange">
-                                    <span class="info-box-icon push-bottom"><i class="material-icons">person</i></span>
-                                   <div class="info-box-content">
-                                        <span class="info-box-text">Products</span>
-                                        <span class="info-box-number"><?php //echo $this->db->where('isActive', 1)->count_all_results('manager'); ?></span>
-                                 
-                                    </div>
-                                 
-                                </div>
-                            
-                            </div> -->
-                              
-                        
-                          
-                        </div>
-                    </div>
+                       
                     <div class="row  mt-10">
                         <div class="col-md-12 col-sm-12">
-                            <div class="card card-box  mt-10">
+                            <div class="card card-box  ">
                                 <div class="card-head center">
                                     <h2>Welcome  <?php echo $this->session->userdata('name'); ?>  </h2>
 

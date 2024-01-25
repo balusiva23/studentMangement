@@ -36,7 +36,10 @@
      .error{
       color: red;
      }
+    .logo-default{
+     
 
+    }
   
      </style>
 

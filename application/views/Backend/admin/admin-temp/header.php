@@ -5,7 +5,8 @@
                 <div class="page-logo">
                     <a href="<?php echo base_url(); ?>">
                         <!-- <span class=""><img src="<?php echo base_url(); ?>assets/"></span> -->
-                        <span class="logo-default" style="font-size: 15px;">House Hub</span> </a>
+                        <span class="logo-default" style= "font-size: 25px !important;
+    margin: 10px !important;">House Hub</span> </a>
                 </div>
                 <!-- logo end -->
                 <ul class="nav navbar-nav navbar-left in">

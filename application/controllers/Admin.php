@@ -444,6 +444,41 @@ foreach ($appointment_counts as $row) {
   
  }
 
+ public function add_events() {
+	// Handle form submission to add a new time slot
+	$slot = $this->input->post('title');
+	
+	// Check if a time slot with the same start_time and end_time already exists with isActive set to 1
+	$this->db->where('title', $slot);
+
+	$this->db->where('isActive', 1);
+	$existingTimeSlot = $this->db->get('events')->row();
+
+	if ($existingTimeSlot) {
+		// Time slot with the same start_time and end_time already exists, return an error
+		echo json_encode(array('status' => 'error', 'message' => 'Event  already exists '));
+		return;
+	}
+
+	// Slot is available, proceed to insert
+	$data = array(
+		'title' => $this->input->post('title'),
+		'start_date' => $this->input->post('start_date'),
+		'end_date' => $this->input->post('end_date'),
+	
+	);
+
+	
+	$success = $this->db->insert('events', $data);
+
+	if ($success) {
+		echo json_encode(array('status' => 'success', 'message' => 'Data saved successfully'));
+	} else {
+		echo json_encode(array('status' => 'error', 'message' => 'Failed to save data'));
+	}
+}
+
+
  public function delete_events() {
 	$id  =$this->input->post('id');
   // Delete a time slot from the "time_slots" table

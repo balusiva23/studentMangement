@@ -51,6 +51,9 @@
    
     margin: 50px -20px 0px !important;
 }
+.error{
+      color: red;
+     }
  </style>
 </head>
 <!-- END HEAD -->
@@ -159,7 +162,7 @@
                 </label>
                 <div class="col-md-8">
                     <input type="text" name="title" data-required="1" placeholder="Enter Title"
-                        class="form-control input-height" />
+                        class="form-control input-height" required/>
                 </div>
                 </div>
                 <div class="form-group row">
@@ -168,12 +171,12 @@
                 </label>
                 <div class="col-md-8">
                     <input type="date" name="start_date" data-required="1" placeholder="Enter Title"
-                        class="form-control input-height" />
+                        class="form-control input-height" required />
                 </div>
                 </div>
                 <div class="form-group row">
                 <label class="control-label col-md-2">  End Date
-                    <span class="required"> * </span>
+                    <span class="required"> </span>
                 </label>
                 <div class="col-md-8">
                     <input type="date" name="end_date" data-required="1" placeholder="Enter Title"
@@ -181,6 +184,8 @@
                 </div>
                 </div>
                 </div>
+               
+           
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
                         aria-label="Close">Cancel</button>
@@ -207,7 +212,7 @@
                 </label>
                 <div class="col-md-8">
                     <input type="text" name="title" data-required="1" placeholder="Enter Title"
-                        class="form-control input-height" />
+                        class="form-control input-height" required/>
                 </div>
                 </div>
                 <div class="form-group row">
@@ -216,12 +221,12 @@
                 </label>
                 <div class="col-md-8">
                     <input type="date" name="start_date" data-required="1" placeholder="Enter Title"
-                        class="form-control input-height" />
+                        class="form-control input-height" required />
                 </div>
                 </div>
                 <div class="form-group row">
                 <label class="control-label col-md-2">  End Date
-                    <span class="required"> * </span>
+                    <span class="required"> </span>
                 </label>
                 <div class="col-md-8">
                     <input type="date" name="end_date" data-required="1" placeholder="Enter Title"
@@ -393,17 +398,18 @@ $(document).on('click','#save_nav',function(){
 
        
          var slot = $("input[name='title']").val();
+         var start_date = $("input[name='start_date']").val();
        
      
 
     // Check if all required fields are filled out
-    if (slot !== '' ) {
+    if (slot !== '' && start_date ) {
           
 
 
         $.ajax({
         type:'post',
-        url: '<?php echo base_url("Admin/add_announcement");?>',
+        url: '<?php echo base_url("Admin/add_events");?>',
         data: new FormData($("#form_sample_add")[0]),
         contentType: false,
         processData: false, 

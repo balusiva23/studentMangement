@@ -262,7 +262,7 @@ class Admin extends CI_Controller {
 		            $data = array(
 				   'name' => $name,
 					    'email' => $email,
-					    'number' => $number,
+					    // 'number' => $number,
 				    'profile' => $img_url,
 				   
 				);
@@ -276,7 +276,7 @@ class Admin extends CI_Controller {
 		      	$data = array(
 					    'name' => $name,
 					    'email' => $email,
-					    'number' => $number,
+					    // 'number' => $number,
 	
 					);
 		      	if ($password) {

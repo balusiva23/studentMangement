@@ -173,24 +173,32 @@ class Login extends CI_Controller {
                // Form validation passed
    
    
-               if ($this->login_model->is_email_duplicate($email) && $this->login_model->is_number_duplicate($number)) {
-               $response = array(
-                   'status' => 'error',
-                   'message' => 'Email address and number already exist'
-               );
-              // echo json_encode($response);
-              } elseif ($this->login_model->is_email_duplicate($email)) {
+            //    if ($this->login_model->is_email_duplicate($email) && $this->login_model->is_number_duplicate($number)) {
+            //    $response = array(
+            //        'status' => 'error',
+            //        'message' => 'Email address and number already exist'
+            //    );
+            //   // echo json_encode($response);
+            //   } elseif ($this->login_model->is_email_duplicate($email)) {
                  
-                     $response = array(
-                      'status' => 'error',
-                        'message' => 'Email address already exists'
-                  );
-                } elseif ($this->login_model->is_number_duplicate($number)) {
+            //          $response = array(
+            //           'status' => 'error',
+            //             'message' => 'Email address already exists'
+            //       );
+            //     } elseif ($this->login_model->is_number_duplicate($number)) {
                 
-                     $response = array(
-                      'status' => 'error',
-                      'message' => 'Number already exists'
-                   );
+            //          $response = array(
+            //           'status' => 'error',
+            //           'message' => 'Number already exists'
+            //        );
+            //    } else {
+
+                if ($this->login_model->is_email_duplicate($email)) {
+                 
+                    $response = array(
+                     'status' => 'error',
+                       'message' => 'Email address already exists'
+                 );
                } else {
                 
                
@@ -206,7 +214,7 @@ class Login extends CI_Controller {
                    'email' => $email,
                    'password' => $encrypted_password,
                  
-                   'number' =>$number,
+                //    'number' =>$number,
                    'role'=>'Member'
                 
                );

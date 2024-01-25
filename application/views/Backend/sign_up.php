@@ -6,7 +6,7 @@
 	<meta content="width=device-width, initial-scale=1" name="viewport" />
 	<meta name="description" content="Responsive Admin Template" />
 	<meta name="author" content="SmartUniversity" />
- <title>Student Management</title>
+ <title>House Hub</title>
 	<!-- google font -->
 	<link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" rel="stylesheet" type="text/css" />
 	<!-- icons -->
@@ -57,12 +57,12 @@
 										class="form-control input-height" />
 								</div>
 							</div>
-            <div class="form-group">
+            <!-- <div class="form-group">
                 <div class="">
                   <input name="number" id="number" type="number" placeholder="Enter Your  Mobile Number"
                     class="form-control input-height" required/>
                 </div>
-              </div>
+              </div> -->
         
 							<div class="form-group">
 								<div class="">

@@ -74,7 +74,7 @@
                                                                   
                                                                     <th class="center text-center"> Name </th>
                                                                     <th class="center text-center"> Email </th>
-                                                                    <th class="center text-center"> Mobile No </th>
+                                                                    <!-- <th class="center text-center"> Mobile No </th> -->
                                                                     <th class="center text-center"> Team </th>
                                                                     <?php  if($admin_data->user_status == '0') { ?>
                                                                     <th class="center text-center"> Update / Delete </th>
@@ -101,7 +101,7 @@
                                                                    
                                                                     <td class="center">   <?=$member->name; ?></td>
                                                                     <td class="center">   <?=$member->email; ?></td>
-                                                                    <td class="center">   <?=$member->number; ?></td>
+                                                                    <!-- <td class="center">   <?=$member->number; ?></td> -->
                                                                     <td class="center">   <?= ($result) ? $result->team : ''; ?></td>
                                                                    
                                                                     <?php  if($admin_data->user_status == '0') { ?>

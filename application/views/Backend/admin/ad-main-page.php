@@ -89,7 +89,9 @@
                                     <div class="doctor-profile">
                                 
                                         
-                                            <img src=" <?php echo base_url('assets/default.png'); ?>  "class="doctor-pic" alt="">
+                                            <!-- <img src=" <?php echo base_url('assets/default.png'); ?>  "class="doctor-pic" alt=""> -->
+
+                                            <img alt="image"  src="<?php if($admin_data->profile ) { echo base_url('assets/uploads/profile/').$admin_data->profile; }else{ echo base_url('assets/default.png'); } ?> " class="doctor-pic" >
                                      
 
                                         <div class="profile-usertitle">
@@ -104,8 +106,8 @@
                                         </div>
                                         <p> <?php echo $this->session->userdata('email'); ?></p>
                                         <div>
-                                            <p><i class="fa fa-phone"></i><a href="<?php echo "+91 ".$admin_data->number; ?> "><?php echo "+91 ".$admin_data->number; ?> </a>
-                                            </p>
+                                            <!-- <p><i class="fa fa-phone"></i><a href="<?php echo "+91 ".$admin_data->number; ?> "><?php echo "+91 ".$admin_data->number; ?> </a>
+                                            </p> -->
                                         </div>
                                     </div>
                                 </div>

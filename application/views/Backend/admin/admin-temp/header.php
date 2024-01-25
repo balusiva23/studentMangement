@@ -5,7 +5,7 @@
                 <div class="page-logo">
                     <a href="<?php echo base_url(); ?>">
                         <!-- <span class=""><img src="<?php echo base_url(); ?>assets/"></span> -->
-                        <span class="logo-default" style="font-size: 15px;">Student Management</span> </a>
+                        <span class="logo-default" style="font-size: 15px;">House Hub</span> </a>
                 </div>
                 <!-- logo end -->
                 <ul class="nav navbar-nav navbar-left in">
@@ -33,7 +33,8 @@
                             <a class="dropdown-toggle" data-bs-toggle="dropdown" data-hover="dropdown"
                                 data-close-others="true">
                                 <!-- <img alt="" class="img-circle " src="<?php //echo base_url('assets/uploads/admin_profile/').$admin_data->profile ?>" /> -->
-                                <img alt="image" class="img-circle "  src="<?php  echo base_url('assets/default.png'); ?> " >
+                                <!-- <img alt="image" class="img-circle "  src="<?php  echo base_url('assets/default.png'); ?> " > -->
+                                <img alt="image"  src="<?php if($admin_data->profile ) { echo base_url('assets/uploads/profile/').$admin_data->profile; }else{ echo base_url('assets/default.png'); } ?> " >
                                 <span class="username username-hide-on-mobile"> <?php  echo $admin_data->name; ?>
                             </a>
                             <ul class="dropdown-menu dropdown-menu-default">

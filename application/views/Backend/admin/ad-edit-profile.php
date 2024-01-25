@@ -68,7 +68,7 @@
                                                         value="<?= $admin_data->email ?>" class="form-control input-height" required/>
                                                 </div>
                                             </div>
-
+<!-- 
                                             <div class="form-group row">
                                                 <label class="control-label col-md-3">Mobile No.
                                                     <span class="required"> * </span>
@@ -77,7 +77,7 @@
                                                     <input name="number" id="number" type="text"  value="<?= $admin_data->number ?>"
                                                         class="form-control input-height" required/>
                                                 </div>
-                                            </div>
+                                            </div> -->
                                             <div class="form-group row">
                                                 <label class="control-label col-md-3">Profile Picture
                                                 </label>
@@ -86,7 +86,7 @@
                                                 </div>
                                                   <?php  if($admin_data->profile){ ?>
                                              <div class="preview" style="  display: grid;place-items: center;width: 80%;">
-                                               <img src="<?php echo base_url('assets/uploads/admin_profile/').$admin_data->profile ?>" id="pre-img" style="width:100px">
+                                               <img src="<?php echo base_url('assets/uploads/profile/').$admin_data->profile ?>" id="pre-img" style="width:100px">
 
                                               </div>
                                           <?php } ?>

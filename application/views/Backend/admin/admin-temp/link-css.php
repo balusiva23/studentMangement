@@ -19,7 +19,7 @@
  
 
      <!-- favicon -->
-    <!-- <link rel="shortcut icon" href="<?php echo base_url(); ?>assets/favicon.ico" /> -->
+    <link rel="shortcut icon" href="<?php echo base_url(); ?>assets/favicon.ico" />
 
     <link href="<?php echo base_url(); ?>assets/datatables/jquery.dataTables.min.css" rel="stylesheet" type="text/css" />
   

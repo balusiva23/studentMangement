@@ -33,14 +33,14 @@
                                                 Dashboard</span>
                                         </a>
                              </li>
-
-
+                          
+                             <?php  if($admin_data->user_status == '0') { ?>
                              <li class="nav-item <?= $this->uri->segment(2) === 'Students' ? 'active' : '' ?>">
                                         <a href="<?php echo base_url(); ?>Admin/Students" class="nav-link "><i data-feather="book"></i> <span class="title">
                                         Students</span>
                                         </a>
                                 </li> 
-                             <?php  if($admin_data->user_status == '0') { ?>
+                             <?php }  if($admin_data->user_status == '0') { ?>
                            
                            
                        <li class="nav-item">

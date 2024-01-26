@@ -378,9 +378,9 @@ allDayDefault: false,
   $('[name="startdate"]').val(start.format("YYYY-MM-DD"));
   $('[name="month"]').val(start.format("MM-YYYY"));
  // console.log('click');
- <?php  //if($admin_data->user_status == '1') { ?>
+ <?php  if($admin_data->user_status == '1') { ?>
    $('#smallModel').modal('show');
-   <?php //} ?>
+   <?php } ?>
 
   var date = start.format("YYYY-MM-DD");
   
@@ -648,7 +648,7 @@ allDayDefault: false,
      
         return false;
         })
-
+        <?php  if($admin_data->user_status == '1') { ?>
        $(document).on('click', '.register', function(e) {
           //  $(".register").on("click", function() {
             e.preventDefault(); // Prevent the default action
@@ -684,7 +684,7 @@ allDayDefault: false,
             });
         });
 
-
+          <?php } ?>
 
         $(document).on('click', '.btn-secondary', function() {
             $(".modal-backdrop").remove();

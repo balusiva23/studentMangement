@@ -24,6 +24,35 @@
                 <div class="top-menu">
                     <ul class="nav navbar-nav pull-right">
 
+
+                    
+                               <!-- start notification dropdown -->
+                               <li class="dropdown dropdown-extended dropdown-notification" id="header_notification_bar">
+                            <a class="dropdown-toggle notifications-button" id="notifications-button" data-bs-toggle="dropdown" data-hover="dropdown"
+                                data-close-others="true">
+                                <i data-feather="bell"></i>
+                                <span class="badge headerBadgeColor1 count"> 0 </span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li class="external">
+                                    <h3><span class="bold">Notifications</span></h3>
+                                    <!-- <span class="notification-label purple-bgcolor count">New </span> -->
+                                </li>
+                                <li>
+                                    <ul class="dropdown-menu-list small-slimscroll-style message-center" id="notifications-modal"  data-handle-color="#637283">
+                                      
+                                    </ul>
+                                    <div class="dropdown-menu-footer">
+                                        <a href="#" class="clear" id="clear"> Clear All</a>
+                                    </div>
+                               
+                                </li>
+                            </ul>
+
+
+                        </li>
+                        <!-- end notification dropdown -->
+
        
                         <!-- end notification dropdown -->
 
@@ -40,8 +69,8 @@
                             </a>
                             <ul class="dropdown-menu dropdown-menu-default">
                                 <li>
-                                    <a href="<?php echo base_url(); ?>Admin/Edit_Profile">
-                                        <i class="icon-logout"></i>Edit profile</a>
+                                    <a href="<?php echo base_url(); ?>Admin/View_profile">
+                                        <i class="icon-logout"></i>Profile</a>
                                 </li>
 
                                 <li>

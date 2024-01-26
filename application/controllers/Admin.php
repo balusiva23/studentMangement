@@ -44,6 +44,10 @@ class Admin extends CI_Controller {
 			$query = $this->db->get('announcement');
 			$announcement = $query->result();
 			 $data['announcement'] = $announcement;
+
+			$query1 = $this->db->get('event_card');
+			$announcement1 = $query1->result();
+			 $data['card'] = $announcement1;
 	    $this->load->view('Backend/admin/ad-main-page',$data);
 	}
 
@@ -132,6 +136,11 @@ class Admin extends CI_Controller {
 	public function Edit_Profile(){
     	$this->checkLogin();
     	$this->load->view('Backend/admin/ad-edit-profile');
+
+    }
+	public function View_Profile(){
+    	$this->checkLogin();
+    	$this->load->view('Backend/admin/view-profile');
 
     }
 
@@ -428,6 +437,12 @@ foreach ($appointment_counts as $row) {
     // Convert date format from "DD-MM-YYYY" to "YYYY-MM-DD"
     $start_date = date('Y-m-d', strtotime($row->start_date));
     $end_date = date('Y-m-d', strtotime($row->end_date));
+    if($row->color){
+		$color = $row->color;
+	}else{
+		$color = 'bg-info';
+	}
+   
 
     $data[] = array(
         'id' => $j,
@@ -435,7 +450,8 @@ foreach ($appointment_counts as $row) {
         'start' => $start_date,
         'end' => $end_date,
 		'dataid' => $row->id,
-        'className' => 'bg-info delete',
+        'className' =>$color.' delete register',
+		'color'=>$color
     );
     $j++;
 }
@@ -527,6 +543,7 @@ foreach ($appointment_counts as $row) {
 		// Slot is available, proceed to insert
 		$data = array(
 			'team' => $this->input->post('title'),
+			'color' => $this->input->post('color'),
 		
 		);
 
@@ -546,6 +563,7 @@ foreach ($appointment_counts as $row) {
 		$id  =$this->input->post('id');
 		$data = array(
 			'team' => $this->input->post('title'),
+			'color' => $this->input->post('color'),
 		);
 
 		// Update data in the "time_slots" table
@@ -588,6 +606,7 @@ foreach ($appointment_counts as $row) {
 		$response = array(
 			'id' => $timeSlot->id,
 			'team' => $timeSlot->team,
+			'color' => $timeSlot->color,
 			
 		);
 
@@ -875,6 +894,7 @@ public function getPointsBychart() {
             'id' => $value->id,
             'team' => $value->team,
             'points' => $value->points,
+			'color' => $value->color,
         );
 
         // Add the response data to the overall response array
@@ -884,4 +904,333 @@ public function getPointsBychart() {
     // Send the response as JSON
     echo json_encode($response);
 }
+//
+	//--------------------------------Event card -------------------------------------- //
+	public function event_card()
+	{
+		$this->checkLogin();
+		//
+		$query = $this->db->get('event_card');
+		$announcement = $query->result();
+         $data['announcement'] = $announcement;
+
+		$this->load->view('Backend/admin/event-card',$data);
+	}
+
+	public function add_event_card() {
+		// Handle form submission to add a new time slot
+		$slot = $this->input->post('title');
+		
+		// Check if a time slot with the same start_time and end_time already exists with isActive set to 1
+		$this->db->where('title', $slot);
+	
+		$this->db->where('isActive', 1);
+		$existingTimeSlot = $this->db->get('event_card')->row();
+
+		if ($existingTimeSlot) {
+			// Time slot with the same start_time and end_time already exists, return an error
+			echo json_encode(array('status' => 'error', 'message' => 'Event  already exists '));
+			return;
+		}
+
+		// // Slot is available, proceed to insert
+		// $data = array(
+		// 	'title' => $this->input->post('title'),
+		
+		// );
+		if($_FILES['file_url']['name']){
+			$file_name = $_FILES['file_url']['name'];
+			$fileSize = $_FILES["file_url"]["size"]/1024;
+			$fileType = $_FILES["file_url"]["type"];
+			$new_file_name='';
+			$new_file_name .= $file_name;
+
+			$config = array(
+				'file_name' => $new_file_name,
+				'upload_path' => "./assets/uploads/profile",
+				'allowed_types' => "gif|jpg|png|jpeg|pdf|doc|docx",
+				'overwrite' => False,
+				'max_size' => "50720000"
+			);
+			//create directory
+			  if(!is_dir($config['upload_path'])) mkdir($config['upload_path'], 0777, TRUE);
+	
+			$this->load->library('Upload', $config);
+			$this->upload->initialize($config);                
+			if (!$this->upload->do_upload('file_url')) {
+				echo $this->upload->display_errors();
+				#redirect("notice/All_notice");
+			}
+
+   
+			else {
+
+				$path = $this->upload->data();
+				$img_url = $path['file_name'];
+				$data = array(
+					'title' => $this->input->post('title'),
+					'desc' => $this->input->post('desc'),
+					'team' => $this->input->post('team'),
+					'file_url' => $img_url,
+			   
+			);
+		   
+				
+			}
+		  }else{
+
+			  $data = array(
+				'title' => $this->input->post('title'),
+				'desc' => $this->input->post('desc'),
+				'team' => $this->input->post('team'),
+
+				);
+			 
+		  }
+
+		
+		$success = $this->db->insert('event_card', $data);
+
+		if ($success) {
+			echo json_encode(array('status' => 'success', 'message' => 'Data saved successfully'));
+		} else {
+			echo json_encode(array('status' => 'error', 'message' => 'Failed to save data'));
+		}
+	}
+
+
+
+		public function update_event_card() {
+		// Handle form submission to update an existing time slot
+		$id  =$this->input->post('id');
+		// $data = array(
+		// 	'title' => $this->input->post('title'),
+		// );
+
+		if($_FILES['file_url']['name']){
+			$file_name = $_FILES['file_url']['name'];
+			$fileSize = $_FILES["file_url"]["size"]/1024;
+			$fileType = $_FILES["file_url"]["type"];
+			$new_file_name='';
+			$new_file_name .= $file_name;
+
+			$config = array(
+				'file_name' => $new_file_name,
+				'upload_path' => "./assets/uploads/profile",
+				'allowed_types' => "gif|jpg|png|jpeg|pdf|doc|docx",
+				'overwrite' => False,
+				'max_size' => "50720000"
+			);
+			//create directory
+			  if(!is_dir($config['upload_path'])) mkdir($config['upload_path'], 0777, TRUE);
+	
+			$this->load->library('Upload', $config);
+			$this->upload->initialize($config);                
+			if (!$this->upload->do_upload('file_url')) {
+				echo $this->upload->display_errors();
+				#redirect("notice/All_notice");
+			}
+
+   
+			else {
+
+				$path = $this->upload->data();
+				$img_url = $path['file_name'];
+				$data = array(
+					'title' => $this->input->post('title'),
+					'desc' => $this->input->post('desc'),
+					'team' => $this->input->post('team'),
+					'file_url' => $img_url,
+			   
+			);
+		   
+				
+			}
+		  }else{
+
+			  $data = array(
+				'title' => $this->input->post('title'),
+				'desc' => $this->input->post('desc'),
+				'team' => $this->input->post('team'),
+
+				);
+			 
+		  }
+
+		// Update data in the "time_slots" table
+		$this->db->where('id', $id);
+		$success =   $this->db->update('event_card', $data);
+
+		if ($success) {
+			
+			echo json_encode(array('status' => 'success', 'message' =>'Data updated successfully'));
+		} else {
+			echo json_encode(array('status' => 'error', 'message' => 'Failed to update data'));
+		}
+	}
+
+	public function delete_event_card() {
+		  $id  =$this->input->post('id');
+		// Delete a time slot from the "time_slots" table
+		$this->db->where('id', $id);
+		$success =   $this->db->delete('event_card');
+
+		if ($success) {
+			
+			echo json_encode(array('status' => 'success', 'message' =>'Deleted successfully'));
+		} else {
+			echo json_encode(array('status' => 'error', 'message' => 'Failed to delete data'));
+		}
+
+	  
+	}
+	public function getevent_cardByID() {
+		// Get the ID parameter from the AJAX request
+		$id = $this->input->get('id');
+
+		// Retrieve time slot details directly in the controller
+		$this->db->where('id', $id);
+		$query = $this->db->get('event_card');
+		$timeSlot = $query->row();
+
+		// Prepare the response data as an array
+		$response = array(
+			'id' => $timeSlot->id,
+			'title' => $timeSlot->title,
+			'desc' => $timeSlot->desc,
+			'team' => $timeSlot->team,
+			
+		);
+
+		// Send the response as JSON
+		echo json_encode($response);
+	}
+
+	// -------------------------register event ----------------------------------------
+	public function register_events() {
+		// Handle form submission to add a new time slot
+		$slot = $this->input->post('title');
+		
+		// Check if a time slot with the same start_time and end_time already exists with isActive set to 1
+		$this->db->where('title', $slot);
+		$this->db->where('userid', $this->input->post('userid'));
+	
+		$this->db->where('isActive', 1);
+		$existingTimeSlot = $this->db->get('events')->row();
+	
+		if ($existingTimeSlot) {
+			// Time slot with the same start_time and end_time already exists, return an error
+			echo json_encode(array('status' => 'error', 'message' => 'Event  already exists '));
+			return;
+		}
+	    if($this->input->post('team')){
+			$query = $this->db->get_where('leader_board', array('isActive' => '1','id'=>$this->input->post('team')));
+
+			$result = $query->row();
+
+			$team_color = $result->color;
+		}else{
+			$team_color = '';
+		}
+		
+
+		// Slot is available, proceed to insert
+		$data = array(
+			'title' => $this->input->post('title'),
+			'start_date' => $this->input->post('startdate'),
+			//'end_date' => $this->input->post('end_date'),
+			'color' => $team_color,
+			'desc' => $this->input->post('desc'),
+			'userid' => $this->input->post('userid'),
+		
+		);
+	
+		if($this->input->post('id')){
+
+			$this->db->where('id', $this->input->post('id'));
+			$success =   $this->db->update('events', $data);
+
+			if ($success) {
+				echo json_encode(array('status' => 'success', 'message' => 'Data updated successfully'));
+			} else {
+				echo json_encode(array('status' => 'error', 'message' => 'Failed to save data'));
+			}
+          
+		}else{
+			$success = $this->db->insert('events', $data);
+
+			if ($success) {
+				echo json_encode(array('status' => 'success', 'message' => 'Data saved successfully'));
+			} else {
+				echo json_encode(array('status' => 'error', 'message' => 'Failed to save data'));
+			}
+		}
+	
+	
+		
+	}
+
+	public function geteventregByID() {
+		// Get the ID parameter from the AJAX request
+		$id = $this->input->get('id');
+
+		// Retrieve time slot details directly in the controller
+		$this->db->where('id', $id);
+		$query = $this->db->get('events');
+		$timeSlot = $query->row();
+
+
+		$query = $this->db->get_where('admin', array('isActive' => '1','id'=>$timeSlot->userid));
+
+		$result = $query->row();
+
+		
+
+		// Prepare the response data as an array
+		$response = array(
+			'id' => $timeSlot->id,
+			'title' => $timeSlot->title,
+			'desc' => $timeSlot->desc,
+			'team' => $result->team,
+			'startdate' => $timeSlot->start_date,
+			'userId' => $timeSlot->userid,
+			
+		);
+
+		// Send the response as JSON
+		echo json_encode($response);
+	 }
+	//  public function update_reg_event() {
+	// 	// Handle form submission to update an existing time slot
+	// 	$id  =$this->input->post('id');
+	// 	if($this->input->post('team')){
+	// 		$query = $this->db->get_where('leader_board', array('isActive' => '1','id'=>$this->input->post('team')));
+
+	// 		$result = $query->row();
+
+	// 		$team_color = $result->color;
+	// 	}else{
+	// 		$team_color = '';
+	// 	}
+	// 	$data = array(
+	// 		'title' => $this->input->post('title'),
+	// 		'start_date' => $this->input->post('startdate'),
+	// 		//'end_date' => $this->input->post('end_date'),
+	// 		'color' => $team_color,
+	// 		'desc' => $this->input->post('desc'),
+	// 		'userid' => $this->input->post('userid'),
+		
+	// 	);
+	// 	// Update data in the "time_slots" table
+	// 	$this->db->where('id', $id);
+	// 	$success =   $this->db->update('events', $data);
+	
+	// 	if ($success) {
+			
+	// 		echo json_encode(array('status' => 'success', 'message' =>'Data updated successfully'));
+	// 	} else {
+	// 		echo json_encode(array('status' => 'error', 'message' => 'Failed to update data'));
+	// 	}
+	// }
+	
 }

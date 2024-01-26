@@ -31,7 +31,8 @@
                     <div class="page-bar">
                         <div class="page-title-breadcrumb">
                             <div class=" pull-left">
-                                <div class="page-title">Leader Board</div>
+                                <div class="page-title">Event Cards
+                                </div>
                             </div>
 
                         </div>
@@ -42,7 +43,7 @@
                           <div class="d-flex justify-content-end">
                           <?php  if($admin_data->user_status == '0') { ?>
                                   <a type="button" data-bs-toggle="modal" data-bs-target="#smallModel" 
-                                        class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect m-b-10 m-r-20 btn-circle btn-primary text-right"  style="text-transform: capitalize;">Add </a>
+                                        class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect m-b-10 m-r-20 btn-circle btn-primary text-right"  style="text-transform: capitalize;">Add Event </a>
                                         <?php  } ?>
                                     </div>
                             <div class="tabbable-line">
@@ -72,7 +73,10 @@
                                                                 <tr>
                                                                     <th class="center text-center">S.No</th>
                                                                   
-                                                                    <th class="center text-center"> Team </th>
+                                                                    <th class="center text-center"> Title </th>
+                                                                    <th class="center text-center" style="width:40%"> Description </th>
+                                                                    <th class="center text-center"> Image </th>
+                                                                    <th class="center text-center"> team </th>
                                                                    
                                                                     <?php  if($admin_data->user_status == '0') { ?>
                                                                     <th class="center text-center"> Update / Delete </th>
@@ -84,11 +88,19 @@
                                                             <tbody>
                                                                <?php 
                                                                $i = 1;
-                                                                foreach ($announcement as $member) {?>
+                                                                foreach ($announcement as $member) {
+
+                                                                    $query = $this->db->get_where('leader_board',array('isActive'=> '1','id'=>$member->team));
+                                                                    $result = $query->row();
+                                                                    
+                                                                    ?>
                                                                  <tr class="odd gradeX" data-id="<?=$member->id;?>">
                                                                     <td class="center"> <?=$i; ?></td>
                                                                    
-                                                                    <td class="center">   <?=$member->team; ?></td>
+                                                                    <td class="center">   <?=$member->title; ?></td>
+                                                                    <td class="center">   <?=$member->desc; ?></td>
+                                                                    <td class="center">    <img src="<?php echo base_url('assets/uploads/profile/').$member->file_url ?>" id="pre-img" style="width:100px"></td>
+                                                                    <td class="center">   <?=$result->team; ?></td>
                                                                    
                                                                     <?php  if($admin_data->user_status == '0') { ?>
                                                             
@@ -136,6 +148,10 @@
         <!-- start footer -->
  
         <!-- end footer -->
+        <?php $query = $this->db->get_where('leader_board', array('isActive' => '1'));
+
+      $result = $query->result();
+         ?>
 
         <div class="modal fade" id="smallModel" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
@@ -143,29 +159,61 @@
             <form  id="form_sample_add" class="form-horizontal" method="post " enctype="multipart/form-data">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4 class="modal-title" id="exampleModalLabel">Add Leader Board
+                    <h4 class="modal-title" id="exampleModalLabel">Add Event Card
                     </h4>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
+
                 <div class="form-group row">
-                                <label class="control-label col-md-2"> Team
-                                    <span class="required"> * </span>
-                                </label>
-                                <div class="col-md-8">
-                                    <input type="text" name="title" data-required="1" placeholder="Enter Team"
-                                        class="form-control input-height" />
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label class="control-label col-md-2"> Color
-                                    <span class="required"> * </span>
-                                </label>
-                                <div class="col-md-8">
-                                    <input type="color" name="color" data-required="1" placeholder="Enter Title"
-                                        class="form-control input-height" />
-                                </div>
-                            </div>
+                    <label class="control-label col-md-2"> Title
+                        <span class="required"> * </span>
+                    </label>
+                    <div class="col-md-8">
+                        <input type="text" name="title" data-required="1" placeholder="Enter Title"
+                            class="form-control input-height"required />
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="control-label col-md-2"> Description
+                        <span class="required"> * </span>
+                    </label>
+                    <div class="col-md-8">
+                        <textarea type="text" name="desc" data-required="1" row="3" placeholder="Enter Description"
+                            class="form-control input-height" required></textarea>
+                    </div>
+                </div>
+                <div class="form-group row">
+                <label class="control-label col-md-2"> Select Leaderboard
+                    <span class="required"> * </span>
+                </label>
+                <div class="col-md-8">
+                <select id="team" name="team"  class="form-control input-height" required >
+                    <?php
+                      echo '<option value="">Select</option>';
+                    foreach ($result as $row) {
+                        echo '<option value="' . $row->id . '">' . $row->team . '</option>';
+                       
+                    }
+                    ?>
+                </select>
+                </div>
+               </div>
+                <div class="form-group row">
+                    <label class="control-label col-md-2">Image
+                    <span class="required"> * </span>
+                    </label>
+                    <div class="col-md-8">
+                        <input type="file" class="default" name="file_url">
+                    </div>
+                        <!-- <?php  if($admin_data->profile){ ?>
+                    <div class="preview" style="  display: grid;place-items: center;width: 80%;">
+                    <img src="<?php echo base_url('assets/uploads/profile/').$admin_data->profile ?>" id="pre-img" style="width:100px">
+
+                    </div>
+                <?php } ?> -->
+                 </div>
+               
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
@@ -182,30 +230,60 @@
              <form  id="form_sample_1" class="form-horizontal" method="post " enctype="multipart/form-data">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="staticBackdropLabel">Update Leader Board</h5>
+                    <h5 class="modal-title" id="staticBackdropLabel">Update Announcement</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                    
                 <div class="form-group row">
-                                <label class="control-label col-md-2"> Team
-                                    <span class="required"> * </span>
-                                </label>
-                                <div class="col-md-8">
-                                    <input type="text" name="title" data-required="1" placeholder="Enter Team"
-                                        class="form-control input-height" />
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label class="control-label col-md-2"> Color
-                                    <span class="required"> * </span>
-                                </label>
-                                <div class="col-md-8">
-                                    <input type="color" name="color" data-required="1" placeholder="Enter Title"
-                                        class="form-control input-height" />
-                                </div>
-                            </div>
+                    <label class="control-label col-md-2"> Title
+                        <span class="required"> * </span>
+                    </label>
+                    <div class="col-md-8">
+                        <input type="text" name="title" data-required="1" placeholder="Enter Title"
+                            class="form-control input-height"required />
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="control-label col-md-2"> Description
+                        <span class="required"> * </span>
+                    </label>
+                    <div class="col-md-8">
+                        <textarea type="text" name="desc" data-required="1" row="3" placeholder="Enter Description"
+                            class="form-control input-height" required></textarea>
+                    </div>
+                </div>
+                <div class="form-group row">
+                <label class="control-label col-md-2"> Select Leaderboard
+                    <span class="required"> * </span>
+                </label>
+                <div class="col-md-8">
+                <select id="team" name="team"  class="form-control input-height" required >
+                    <?php
+                      echo '<option value="">Select</option>';
+                    foreach ($result as $row) {
+                        echo '<option value="' . $row->id . '">' . $row->team . '</option>';
+                       
+                    }
+                    ?>
+                </select>
+                </div>
+               </div>
+                <div class="form-group row">
+                    <label class="control-label col-md-2">Image
+                    <span class="required"> * </span>
+                    </label>
+                    <div class="col-md-8">
+                        <input type="file" class="default" name="file_url">
+                    </div>
+                        <!-- <?php  if($admin_data->profile){ ?>
+                    <div class="preview" style="  display: grid;place-items: center;width: 80%;">
+                    <img src="<?php echo base_url('assets/uploads/profile/').$admin_data->profile ?>" id="pre-img" style="width:100px">
 
+                    </div>
+                <?php } ?> -->
+                 </div>
+                  
                 </div>
                 <div class="modal-footer">
                     <input type="hidden" name="id">
@@ -222,6 +300,34 @@
 </body>
 
 <script type="text/javascript">
+    // $(document).ready(function() {
+    //     $('#example4').on('click', '.tblEditBtn', function() {
+    //         // Get the data attributes from the button
+    //         var id = $(this).data('id');
+
+    //         // Make an AJAX request to retrieve the data for the ID
+    //         $.ajax({
+    //             url: '<?php echo base_url("Admin/getProductByID"); ?>?id=' + id, // Adjust the URL to match your product retrieval endpoint
+    //             method: 'GET',
+    //             //data: { id: id },
+    //             dataType: 'json',
+    //             success: function(response) {
+    //                 // Populate the modal with the data returned from the server
+    //                 $('#staticBackdrop [name="id"]').val(response.id);
+    //                 $('#staticBackdrop [name="name"]').val(response.name);
+    //                 $('#staticBackdrop [name="brand"]').val(response.brand);
+    //                 $('#staticBackdrop [name="quantity"]').val(response.quantity);
+    //                 $('#staticBackdrop [name="price"]').val(response.price);
+
+    //                 // Open the modal
+    //                 $('#staticBackdrop').modal('show');
+    //             },
+    //             error: function(xhr, status, error) {
+    //                 console.log(error); // Handle the error if any
+    //             }
+    //         });
+    //     });
+    // });
 
 
 // smallModel
@@ -243,7 +349,7 @@ $(document).on('click','#save_nav',function(){
 
         $.ajax({
         type:'post',
-        url: '<?php echo base_url("Admin/add_team");?>',
+        url: '<?php echo base_url("Admin/add_event_card");?>',
         data: new FormData($("#form_sample_add")[0]),
         contentType: false,
         processData: false, 
@@ -294,15 +400,16 @@ $(document).on('click','#save_nav',function(){
 
             // Make an AJAX request to retrieve the data for the ID
             $.ajax({
-                url: '<?php echo base_url("Admin/getTeamByID"); ?>?id=' + id,
+                url: '<?php echo base_url("Admin/getevent_cardByID"); ?>?id=' + id,
                 method: 'GET',
                 data: { id: id },
                 dataType: 'json',
                 success: function(response) {
                     // Populate the modal with the data returned from the server
                     $('#staticBackdrop [name="id"]').val(response.id);
-                    $('#staticBackdrop [name="title"]').val(response.team);
-                    $('#staticBackdrop [name="color"]').val(response.color);
+                    $('#staticBackdrop [name="title"]').val(response.title);
+                    $('#staticBackdrop [name="desc"]').val(response.desc);
+                    $('#staticBackdrop [name="team"]').val(response.team);
                   
            
                
@@ -322,7 +429,7 @@ $(document).on('click','#save_nav',function(){
          
          $.ajax({
         type:'post',
-        url: '<?php echo base_url("Admin/update_team");?>',
+        url: '<?php echo base_url("Admin/update_event_card");?>',
         data: new FormData($("#form_sample_1")[0]),
         contentType: false,
         processData: false, 
@@ -384,7 +491,7 @@ $(document).on('click','#save_nav',function(){
     action: function(){
     $.ajax({
     type: 'post',
-    url: '<?php echo base_url('Admin/delete_team') ?>',
+    url: '<?php echo base_url('Admin/delete_event_card') ?>',
     data: {id:id},
     success: function (response) {
      var data=$.parseJSON(response);

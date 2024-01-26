@@ -52,6 +52,64 @@
       });
   // "pageLength": 1
     
-
+      
+  
+    /*Notification*/
+    $(document).ready(function() {
+    // Get the number of unread notifications and display it in the badge.
+    $.get('<?php echo base_url();?>/notification/get_admin_notifications_count', function(data) {
+    $('.count').text(data);
+    });
+    // Show the notifications in a modal dialog when the user clicks on the notifications button.
+    $('#notifications-button').click(function() {
+    $.get('<?php echo base_url();?>/notification/get_notifications', function(data) {
+      console.log('Test');
+    $('.message-center').html(data);
+    //$('#notifications-modal').modal('show');
+    });
+    });
+    // Mark a notification as read when the user clicks on it.
+   $('#notifications-modal').on('click', '.unread', function() {
+   // $('.unread').click(function() {
+    var notification_id = $(this).attr('data-notification-id'); //$(this).data('notification-id');
+    var table = $(this).attr('data-table'); //$(this).data('notification-id');
+    var url = $(this).attr('data-url'); //$(this).data('notification-id');
+    //console.log(notification_id)
+    $.post('<?php echo base_url();?>/notification/mark_notification_as_read', { notification_id: notification_id,table:table });
+    $(this).removeClass('unread').addClass('read');
+    var count = $('.count').text();
+    $('.count').text(count - 1);
+    // var count = $('.notification-badge').text();
+    // $('.notification-badge').text(count - 1);
+    if(url){
+          setTimeout(function(){
+        window.location.href = '<?php echo base_url()?>'+url;//Admin/All_Navigators
+        },2000);
+    }
+   
+    });
+   ////////new
+   //clear
+    $(document).on('click','#clear',function(){
+     //$('#header_notification_bar').on('click', '#clear', function() {
+    var table = $(this).attr('data-table'); 
+    var url = $(this).attr('data-url'); 
+    //console.log(notification_id)
+    $.post('<?php echo base_url();?>/notification/All_mark_notification_as_read', {table:table });
+    $(".unread").removeClass('unread').addClass('read');
+    $("#notifications-modal").html('');
+    //$(this).removeClass('unread').addClass('read');
+    var count = $('.count').text();
+    $('.count').text(0);
+    // var count = $('.notification-badge').text();
+    // $('.notification-badge').text(count - 1);
+    if(url){
+          setTimeout(function(){
+        window.location.href = '<?php echo base_url()?>'+url;//Admin/All_Navigators
+        },2000);
+    }
+   
+    });
+    });
 
     </script>

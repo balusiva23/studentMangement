@@ -26,19 +26,7 @@
                             </li>
 
 
-                            <!-- <li class="nav-item">
-                                <a href="#" class="nav-link nav-toggle"><i data-feather="book"></i>
-                                    <span class="title">Dashboard</span><span class="arrow"></span></a>
-                                <ul class="sub-menu">
-
-                                    <li class="nav-item">
-                                        <a href="<?php echo base_url(); ?>Admin" class="nav-link "> <span class="title">
-                                                Dashboard</span>
-                                        </a>
-                                    </li>
-
-                                </ul>
-                            </li> -->
+                           
 
                             <li class="nav-item <?=  !$this->uri->segment(2)  ? 'active' : '' ?>">
                                         <a href="<?php echo base_url(); ?>Admin/" class="nav-link "> <i data-feather="book"></i> <span class="title">
@@ -46,26 +34,28 @@
                                         </a>
                              </li>
 
+
+                             <li class="nav-item <?= $this->uri->segment(2) === 'Students' ? 'active' : '' ?>">
+                                        <a href="<?php echo base_url(); ?>Admin/Students" class="nav-link "><i data-feather="book"></i> <span class="title">
+                                        Students</span>
+                                        </a>
+                                </li> 
                              <?php  if($admin_data->user_status == '0') { ?>
                            
                            
                        <li class="nav-item">
                                 <a href="#" class="nav-link nav-toggle"><i data-feather="book"></i>
-                                    <span class="title">Members</span>
+                                    <span class="title">    Leader Board</span>
                                     <span class="arrow"></span>
                                 </a>
-                                <ul class="sub-menu"  <?= $this->uri->segment(2) === 'Leader_Board' || $this->uri->segment(2) === 'Students'|| $this->uri->segment(2) === 'Points'  ? 'style="display: block;"' : '' ?>>
+                                <ul class="sub-menu"  <?= $this->uri->segment(2) === 'Leader_Board' ||  $this->uri->segment(2) === 'Points'  ? 'style="display: block;"' : '' ?>>
                                  
-                                <!-- <li class="nav-item <?= $this->uri->segment(2) === 'Leader_Board' ? 'active' : '' ?>">
+                                <li class="nav-item <?= $this->uri->segment(2) === 'Leader_Board' ? 'active' : '' ?>">
                                         <a href="<?php echo base_url(); ?>Admin/Leader_Board" class="nav-link "> <span class="title">
                                         Leader Board</span>
                                         </a>
-                                </li>  -->
-                                <li class="nav-item <?= $this->uri->segment(2) === 'Students' ? 'active' : '' ?>">
-                                        <a href="<?php echo base_url(); ?>Admin/Students" class="nav-link "> <span class="title">
-                                        Students</span>
-                                        </a>
                                 </li> 
+                             
                                 <li class="nav-item <?= $this->uri->segment(2) === 'Points' ? 'active' : '' ?>">
                                         <a href="<?php echo base_url(); ?>Admin/Points" class="nav-link "> <span class="title">
                                         Points</span>
@@ -82,7 +72,7 @@
 
                              
 
-                
+<!--                 
                             <?php  if($admin_data->user_status == '0') { ?>
 
                                 <li class="nav-item <?= $this->uri->segment(2) === 'Leader_Board' ? 'active' : '' ?>">
@@ -91,7 +81,7 @@
                                         </a>
                                 </li>
 
-                            <?php } ?>
+                            <?php } ?> -->
 
                 
                             <?php  if($admin_data->user_status == '0') { ?>
@@ -111,27 +101,39 @@
                                         Events</span>
                                         </a>
                                     </li> 
-                           
-                        <!-- <li class="nav-item">
-                                <a href="#" class="nav-link nav-toggle"><i data-feather="book"></i>
-                                    <span class="title">Events</span>
-                                    <span class="arrow"></span>
-                                </a>
-                                <ul class="sub-menu"  <?= $this->uri->segment(2) === 'All_Events' || $this->uri->segment(2) === 'Add_Member'|| $this->uri->segment(2) === 'Medical_history'  ? 'style="display: block;"' : '' ?>>
-                                 
-
-
-                                    <li class="nav-item <?= $this->uri->segment(2) === 'All_Events' ? 'active' : '' ?>">
-                                        <a href="<?php echo base_url(); ?>Admin/All_Events" class="nav-link "> <span class="title">View
-                                        Events</span>
-                                        </a>
-                                    </li> 
-                               
-                        
-                                </ul>
-                            </li> -->
+                  
 
                             <?php } ?>
+
+                            <?php  if($admin_data->user_status == '0') { ?>
+                           
+                           
+                           <li class="nav-item">
+                                    <a href="#" class="nav-link nav-toggle"><i data-feather="book"></i>
+                                        <span class="title"> Event card</span>
+                                        <span class="arrow"></span>
+                                    </a>
+                                    <ul class="sub-menu"  <?= $this->uri->segment(2) === 'event_card'   ? 'style="display: block;"' : '' ?>>
+                                     
+                                    <li class="nav-item <?= $this->uri->segment(2) === 'event_card' ? 'active' : '' ?>">
+                                            <a href="<?php echo base_url(); ?>Admin/event_card" class="nav-link "> <span class="title">
+                                            Event card</span>
+                                            </a>
+                                    </li> 
+                                 
+                                    <!-- <li class="nav-item <?= $this->uri->segment(2) === 'Points' ? 'active' : '' ?>">
+                                            <a href="<?php echo base_url(); ?>Admin/Points" class="nav-link "> <span class="title">
+                                            Points</span>
+                                            </a>
+                                    </li> 
+                                    -->
+                            
+                                    </ul>
+                                </li>
+    
+                                <?php } ?>
+
+
                            
 
                            

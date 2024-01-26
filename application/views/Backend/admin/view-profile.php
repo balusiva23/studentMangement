@@ -32,7 +32,7 @@
                     <div class="page-bar">
                         <div class="page-title-breadcrumb">
                             <div class=" pull-left">
-                                <div class="page-title">Edit My Profile</div>
+                                <div class="page-title"> My Profile</div>
                             </div>
 
                         </div>
@@ -41,7 +41,7 @@
                         <div class="col-md-12 col-sm-12">
                             <div class="card card-box">
                                 <div class="card-head">
-                                    <header>Edit My Profile</header>
+                                    <header> My Profile</header>
 
 
                                 </div>
@@ -50,22 +50,24 @@
                                       <form  id="update_profile" method="post" class="form-horizontal"  enctype="multipart/form-data">
                                         <div class="form-body">
                                             <div class="form-group row">
-                                                <label class="control-label col-md-3"> Full Name
-                                                    <span class="required"> * </span>
+                                                <label class="control-label col-md-3"> Full Name :
+                                                    <span class="required"> </span>
                                                 </label>
                                                 <div class="col-md-8">
-                                                    <input type="text" name="name" id="name" data-required="1"
-                                                        value="<?= $admin_data->name ?>" class="form-control input-height" required/>
+                                                    <!-- <input type="text" name="name" id="name" data-required="1"
+                                                        value="<?= $admin_data->name ?>" class="form-control input-height" required/> -->
+                                                        <p class="mt-2"><?= $admin_data->name ?></p>
                                                 </div>
                                             </div> 
                                          
                                             <div class="form-group row">
-                                                <label class="control-label col-md-3">Email ID
-                                                    <span class="required"> * </span>
+                                                <label class="control-label col-md-3">Email ID :
+                                                    <span class="required"> </span>
                                                 </label>
-                                                <div class="col-md-8">
-                                                    <input type="text" name="email" id="email" data-required="1"
-                                                        value="<?= $admin_data->email ?>" class="form-control input-height" required/>
+                                                <div class="col-md-8 ">
+                                                    <!-- <input type="text" name="email" id="email" data-required="1"
+                                                        value="<?= $admin_data->email ?>" class="form-control input-height" required/> -->
+                                                        <p class="mt-2"><?= $admin_data->email ?></p>
                                                 </div>
                                             </div>
 <!-- 
@@ -79,19 +81,21 @@
                                                 </div>
                                             </div> -->
                                             <div class="form-group row">
-                                                <label class="control-label col-md-3">Profile Picture
+                                                <label class="control-label col-md-3">Profile Picture :
                                                 </label>
                                                 <div class="col-md-8">
-                                                    <input type="file" class="default" name="file_url">
-                                                </div>
-                                                  <?php  if($admin_data->profile){ ?>
-                                             <div class="preview" style="  display: grid;place-items: center;width: 80%;">
+                                                    <!-- <input type="file" class="default" name="file_url"> -->
+
+                                                    <?php  if($admin_data->profile){ ?>
+                                             <div class="preview" style="  display: grid;place-items: ;width: 80%;">
                                                <img src="<?php echo base_url('assets/uploads/profile/').$admin_data->profile ?>" id="pre-img" style="width:100px">
 
                                               </div>
                                           <?php } ?>
+                                                </div>
+                                               
                                             </div>
-   
+<!--    
                                              <div class="form-group row">
                                                 <label class="control-label col-md-3">Password:
                                                     <span class="required">  </span>
@@ -107,7 +111,7 @@
 
                                                     </div>
                                                 </div>
-                                            </div>
+                                            </div> -->
 
                                             <div class="form-group row">
                                                 <label class="control-label col-md-3">
@@ -115,10 +119,8 @@
                                                 </label>
                                                 <div class="col-md-8">
                                                 <input type="hidden" name="id" value=" <?= $admin_data->id; ?> ">
-                                                    <button type="button"
-                                                        class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect m-b-10 m-r-20 btn-circle btn-primary" id="update_member">Save</button>
-                                                        <a type="button" href="<?=base_url().'/Admin/View_Profile'?>"
-                                                        class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect m-b-10 m-r-20 btn-circle btn-info" >Back</a>
+                                                    <a type="button" href="<?=base_url().'/Admin/Edit_Profile'?>"
+                                                        class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect m-b-10 m-r-20 btn-circle btn-primary" >Edit Profile</a>
                                                 </div>
                                             </div>
 

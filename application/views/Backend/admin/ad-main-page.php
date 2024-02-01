@@ -426,8 +426,38 @@ allDayDefault: false,
  eventClick: function(event) {
 
    var date = event.start.format("YYYY-MM-DD");
-   console.log('click');
-  // $('#UpdateEvent').modal('show');
+   var dataid = event.dataid; // Retrieve the dataid attribute
+
+// console.log("Date: " + date);
+// console.log("DataID: " + dataid);
+
+  //$('#UpdateEvent').modal('show');
+
+  <?php if ($admin_data->user_status == '1') { ?>
+         //         var id = $(this).data('id');
+             $('#exampleModalLabel').text('Update Event')
+        $.ajax({
+            url: '<?php echo base_url("Admin/geteventregByID"); ?>',
+            method: 'GET',
+            data: { date: date,id:dataid },
+            dataType: 'json',
+            success: function(response) {
+                // Populate the modal with the data returned from the server
+                $('#smallModel [name="id"]').val(response.id);
+                $('#smallModel [name="title"]').val(response.title);
+                $('#smallModel [name="desc"]').val(response.desc);
+                $('#smallModel [name="userId"]').val(response.userId);
+                $('#smallModel [name="team"]').val(response.team);
+                $('#smallModel [name="startdate"]').val(response.startdate);
+
+                console.log("Success");
+                $('#smallModel').modal('show');
+            },
+            error: function(xhr, status, error) {
+                console.log(error); // Handle the error if any
+            }
+        });
+    <?php } ?>
 
   },
  eventResize: function(event) {
@@ -525,7 +555,7 @@ allDayDefault: false,
                       <input type="hidden" name="id">
                       <input type="hidden" name="userid" value="<?php  echo $admin_data->id; ?>">
                       <input type="hidden" name="team" value="<?php  echo $admin_data->team; ?>">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
+                    <button type="button" class="btn btn-secondary cancel" data-bs-dismiss="modal"
                         aria-label="Close">Cancel</button>
                     <button type="button" class="btn btn-primary" id="save_event">Save</button>
                 </div>
@@ -648,46 +678,48 @@ allDayDefault: false,
      
         return false;
         })
-        <?php  if($admin_data->user_status == '1') { ?>
-       $(document).on('click', '.register', function(e) {
-          //  $(".register").on("click", function() {
-            e.preventDefault(); // Prevent the default action
-                console.log("Event ");
+    //     <?php  if($admin_data->user_status == '1') { ?>
+    //    $(document).on('click', '.register', function(e) {
+    //       //  $(".register").on("click", function() {
+    //         e.preventDefault(); // Prevent the default action
+    //            // console.log("Event " +date);
             
-            var id = $(this).data('id');
-             $('#exampleModalLabel').text('Update Event')
+            
+    //         var id = $(this).data('id');
+    //          $('#exampleModalLabel').text('Update Event')
 
-            // Make an AJAX request to retrieve the data for the ID
-            $.ajax({
-                url: '<?php echo base_url("Admin/geteventregByID"); ?>?id=' + id,
-                method: 'GET',
-                data: { id: id },
-                dataType: 'json',
-                success: function(response) {
-                    // Populate the modal with the data returned from the server
-                    $('#smallModel [name="id"]').val(response.id);
-                    $('#smallModel [name="title"]').val(response.title);
-                    $('#smallModel [name="desc"]').val(response.desc);
-                    $('#smallModel [name="userId"]').val(response.userId);
-                    $('#smallModel [name="team"]').val(response.team);
-                    $('#smallModel [name="startdate"]').val(response.startdate);
+    //         // Make an AJAX request to retrieve the data for the ID
+    //         $.ajax({
+    //             url: '<?php echo base_url("Admin/geteventregByID"); ?>?id=' + id,
+    //             method: 'GET',
+    //             data: { id: id },
+    //             dataType: 'json',
+    //             success: function(response) {
+    //                 // Populate the modal with the data returned from the server
+    //                 $('#smallModel [name="id"]').val(response.id);
+    //                 $('#smallModel [name="title"]').val(response.title);
+    //                 $('#smallModel [name="desc"]').val(response.desc);
+    //                 $('#smallModel [name="userId"]').val(response.userId);
+    //                 $('#smallModel [name="team"]').val(response.team);
+    //                 $('#smallModel [name="startdate"]').val(response.startdate);
                   
-                    console.log("Successs ");
-                    $('#smallModel').modal('show');
-                    // setTimeout(function() {
-                    //     $('#staticBackdrop').modal('show');
-                    // }, 500);
-                },
-                error: function(xhr, status, error) {
-                    console.log(error); // Handle the error if any
-                }
-            });
-        });
+    //                 console.log("Successs ");
+    //                 $('#smallModel').modal('show');
+    //                 // setTimeout(function() {
+    //                 //     $('#staticBackdrop').modal('show');
+    //                 // }, 500);
+    //             },
+    //             error: function(xhr, status, error) {
+    //                 console.log(error); // Handle the error if any
+    //             }
+    //         });
+    //     });
 
-          <?php } ?>
+    //       <?php } ?>
 
-        $(document).on('click', '.btn-secondary', function() {
+        $(document).on('click', '.cancel', function() {
             $(".modal-backdrop").remove();
+            location.reload(true);
         });
     
     

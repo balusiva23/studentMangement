@@ -338,6 +338,31 @@ class Admin extends CI_Controller {
 		$success = $this->db->insert('announcement', $data);
 
 		if ($success) {
+			 /*Notification*/
+
+			 $userquery = $this->db->get_where('admin', array('isActive' => '1','id'=>$this->input->post('userid')));
+
+			 $userresult = $userquery->row();
+
+			 $filetitle = $slot;
+			 $admin = $this->Admin_model->getAllAdmin();
+			  foreach ($admin as $data) {
+			  $data = array(
+			  'userid' => $data->id,
+			  'title' => $filetitle,
+			  //'desc' => '',
+			  //'created_at' => $this->input->post('startdate'),
+			  'status' => 'unread',
+			  'user_status' => '1',
+			  'admin_status' => '0',
+			//   'icon' => 'fa fa-comments-o',
+			//   'color' => 'blue-bgcolor',
+			  
+			  );
+			  $this->db->insert('announcement_notification', $data);
+			}
+			   /*Notification*/
+
 			echo json_encode(array('status' => 'success', 'message' => 'Data saved successfully'));
 		} else {
 			echo json_encode(array('status' => 'error', 'message' => 'Failed to save data'));
@@ -1163,6 +1188,29 @@ public function getPointsBychart() {
 			$success = $this->db->insert('events', $data);
 
 			if ($success) {
+				 /*Notification*/
+
+				 $userquery = $this->db->get_where('admin', array('isActive' => '1','id'=>$this->input->post('userid')));
+
+				 $userresult = $userquery->row();
+
+				 $filetitle = 'New Event Registered: <span class="txt-name">'.$userresult->name .'</span>.';
+				 // foreach ($admin as $data) {
+				  $data = array(
+				  'userid' => $this->input->post('userid'),
+				  'title' => $filetitle,
+				  'desc' => $this->input->post('desc'),
+				  'created_at' => $this->input->post('startdate'),
+				  'status' => 'unread',
+				  'user_status' => '0',
+			      'admin_status' => '1',
+				//   'icon' => 'fa fa-comments-o',
+				//   'color' => 'blue-bgcolor',
+				  
+				  );
+				  $this->db->insert('notification', $data);
+
+
 				echo json_encode(array('status' => 'success', 'message' => 'Data saved successfully'));
 			} else {
 				echo json_encode(array('status' => 'error', 'message' => 'Failed to save data'));

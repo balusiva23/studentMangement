@@ -150,7 +150,7 @@
 
                    <div class="item">
                     <div class="blogThumb" style="margin: 4px;">
-                    <div class="thumb-center"><img class="img-responsive" alt="user" src="<?php echo base_url('assets/uploads/profile/').$value->file_url; ?>" style="width: 100%;"></div>
+                    <div class="thumb-center" style="    height: 290px;"><img class="img-responsive" alt="user" src="<?php echo base_url('assets/uploads/profile/').$value->file_url; ?>" style="width: 100%;"></div>
                     <div class="white-box " style="margin-top:0px;padding-top:0px;margin-top:0px; height: 200px;  position: relative;">
                     <!-- <div class="text-muted"><span class="m-r-10">June 16</span>
                         <a class="text-muted m-l-10" href="#"><i class="fa fa-heart-o"></i> 56</a>
@@ -433,7 +433,7 @@ allDayDefault: false,
 
   //$('#UpdateEvent').modal('show');
 
-  <?php if ($admin_data->user_status == '1') { ?>
+  <?php if ($admin_data->user_status == '0') { ?>
          //         var id = $(this).data('id');
              $('#exampleModalLabel').text('Update Event')
         $.ajax({
@@ -520,11 +520,11 @@ allDayDefault: false,
                 </div>
                 </div>
                 <div class="form-group row">
-                    <label class="control-label col-md-2"> Description
+                    <label class="control-label col-md-2"> Register 
                         <span class="required"> * </span>
                     </label>
                     <div class="col-md-8">
-                        <textarea type="text" name="desc" data-required="1" row="3" placeholder="Enter Description"
+                        <textarea type="text" name="desc" data-required="1" row="3" placeholder="Enter Register"
                             class="form-control input-height" required></textarea>
                     </div>
                 </div>
@@ -557,7 +557,7 @@ allDayDefault: false,
                       <input type="hidden" name="team" value="<?php  echo $admin_data->team; ?>">
                     <button type="button" class="btn btn-secondary cancel" data-bs-dismiss="modal"
                         aria-label="Close">Cancel</button>
-                    <button type="button" class="btn btn-primary" id="save_event">Save</button>
+                    <button type="button" class="btn btn-primary" id="save_event">Register Now</button>
                 </div>
             </div>
             </form>
